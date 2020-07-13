@@ -1,0 +1,113 @@
+Specialization course Create table statements. 
+	
+	1st Quizz Questions solutions. 
+
+1. 
+CREATE TABLE Customer(
+CustNo char(11) not null,
+custname varchar(30) not null,
+Address varchar(50) not null,
+Internal char(2) not null,
+contact  varchar(50) not null,
+Phone varchar(50) not null,
+City varchar(30) not null,
+State char(2) not null,
+Zip char(10) not null,
+CONSTRAINT CustPk PRIMARY KEY (custNo) );
+
+
+2. 
+CREATE TABLE Facility(
+facNo varchar(8),
+facname varchar(30) not null,
+CONSTRAINT facilityPk PRIMARY KEY (facno) );
+
+3. 
+CREATE TABLE Location(
+LocNo varchar(8),
+facno varchar(8),
+Locname varchar(30) not null,
+CONSTRAINT locationPk PRIMARY KEY (locno) );
+
+5. 
+create table location (
+Locno varchar(8) NOT NULL , 
+facno varchar(8),
+Locname varchar(30) not null,
+CONSTRAINT locationpk PRIMARY KEY (Locno)),
+CONSTRAINT FK_FACNO FOREIGN KEY (Facno) 
+ references Facility (Facno) );
+
+6. 
+create table location (
+Locno varchar(8) NOT NULL, 
+facno varchar(8) NOT NULL ,
+Locname varchar(30) not null,
+CONSTRAINT locationpk PRIMARY KEY (Locno)),
+CONSTRAINT FK_FACNO FOREIGN KEY (Facno) 
+ references Facility (Facno) );
+
+7. 
+CREATE TABLE Facility(
+facNo varchar(8),
+facname varchar(30) not null,
+CONSTRAINT facilityPk PRIMARY KEY (facno) 
+CONSTRAINT facnameUnique unique (facname) );
+
+	2nd Quizz Questions solutions
+
+1. 
+CREATE TABLE Customer (
+Custno varchar(10) NOT NULL,
+CustFirstName varchar(20) NOT NULL, 
+CustLastName varchar(20) NOT NULL, 
+CustCity varchar(10), 
+CustCity varchar(10),
+CustZip varchar(20),
+CustBal NUMERIC,
+CONSTRAINT PK_CUSTNO PRIMARY KEY (CUSTNO) );
+
+2. 
+CREATE TABLE Employee(
+EMPNo VARCHAR(8),
+EMPFirstName VARCHAR(20) NOT NULL,
+EMPLastName VARCHAR(20) NOT NULL,
+EmpPhone VARCHAR(10),
+EmpEmail VARCHAR(20) NOT NULL,
+CONSTRAINT PK_EMPNO PRIMARY KEY (EMPNo) );
+
+3. 
+CREATE TABLE OrderTbl(
+OrdNo varchar(8),
+OrdDate Date not null ,
+CustNo varchar(10),
+EmpNo varchar(10),
+CONSTRAINT PK_ORDNo PRIMARY KEY (OrdNo) );
+
+5. 
+CREATE TABLE OrderTbl(
+OrdNo varchar(8) not null,
+OrdDate Date not null ,
+CustNo varchar(10),
+EmpNo varchar(10),
+CONSTRAINT PK_ORDNo PRIMARY KEY (OrdNo) );
+
+6. 
+CREATE TABLE OrderTbl(
+OrdNo varchar(8) not null,
+OrdDate Date not null ,
+CustNo varchar(10) not null,
+EmpNo varchar(10) not null,
+CONSTRAINT PK_ORDNo PRIMARY KEY (OrdNo) )
+CONSTRAINT FK_EmpNo FORIEGN KEY (EmpNo) references Employee(EmpNo));
+
+7. 
+CREATE TABLE Employee(
+EMPNo VARCHAR(8),
+EMPFirstName VARCHAR(20) NOT NULL,
+EMPLastName VARCHAR(20) NOT NULL,
+EmpPhone VARCHAR(10),
+EmpEmail VARCHAR(20) NOT NULL,
+CONSTRAINT PK_EMPNO PRIMARY KEY (EMPNo) ); 
+CONSTRAINT EmpEmailUnique unique (EmpEmail) );
+

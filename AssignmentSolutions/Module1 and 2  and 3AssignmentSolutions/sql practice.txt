@@ -1,0 +1,151 @@
+
+//Inner Join Exersices. 
+
+1. Find the domestic and international sales for each movie ✓
+Answer:
+
+select title,Domestic_sales , International_sales from Movies inner join boxoffice 
+on
+Movies.Id = boxoffice.Movie_id 
+// finished
+
+2. Show the sales numbers for each movie that did better internationally rather than domestically ✓
+Answer:
+
+SELECT title, domestic_sales, international_sales
+FROM movies
+  JOIN boxoffice
+    ON movies.id = boxoffice.movie_id
+WHERE international_sales > domestic_sales 
+// finished
+
+
+3. List all the movies by their ratings in descending order ✓
+Answer :
+
+Select Title, rating 
+    from Movies 
+       inner join boxoffice 
+        on Movies.id = boxoffice.movie_id 
+    order by rating Desc 
+//finished.
+
+.// Finsihed
+
+////////////////////////////////////////////////////////////////-----------------Outer Join Game--------
+
+1. Find the list of all buildings that have employees ✓
+
+answer: 
+
+select Distinct building from Employees
+
+
+2. Find the list of all buildings and their capacity ✓
+
+answer:
+
+select * from Buildings
+
+
+3. Find the name and role of all employees who have not been assigned to a building ✓
+
+Answer :
+
+Select name, role from Employees where building is null
+
+4. Find the names of the buildings that hold no employees
+
+Answer :
+
+select Distinct Building_name from Buildings left join Employees on building_name = building 
+where role is null
+
+../////// Query with expressions 
+
+1. List all movies and their combined sales in millions of dollars ✓
+
+answer :
+
+SELECT title, (domestic_sales + international_sales) / 1000000 AS gross_sales_millions
+FROM movies
+  JOIN boxoffice
+    ON movies.id = boxoffice.movie_id;
+
+2. List all movies and their ratings in percent
+
+Answer:
+
+select title , rating * 10 from Movies join boxoffice on id = movie_id
+
+3. List all movies that were released on even number years
+
+answer :
+
+select title , year  from Movies WHERE year % 2 = 0;
+
+//////// Query with Aggregate functions
+
+1. Find the longest time that an employee has been at the studio ✓
+
+answers :
+
+SELECT MAX(Years_employed) from Employees
+
+2. For each role, find the average number of years employed by employees in that role
+
+answer :
+
+select role , avg(years_employed) from employees group by role
+
+3. Find the total number of employee years worked in each building
+
+answer :
+
+select building , sum(years_employed) from employees group by building
+
+///// query with Aggregates Part 2
+
+1. Find the number of Artists in the studio (without a HAVING clause) ✓
+
+Answer :
+
+select count(role)from employees where role = 'Artist'
+
+2. Find the number of Employees of each role in the studio ✓
+
+answer :
+
+select distinct role, count(role) from employees group by role
+
+3. Find the total number of years employed by all Engineers
+
+answer :
+
+SELECT role, SUM(years_employed)
+FROM employees
+GROUP BY role
+HAVING role = "Engineer";
+
+//// query with order of execution
+
+1. Find the number of movies each director has directed ✓
+
+answer :
+
+SELECT director, COUNT(id) as Num_movies_directed
+FROM movies
+GROUP BY director;
+
+2. Find the total domestic and international sales that can be attributed to each director
+
+answer :
+
+SELECT director, SUM(domestic_sales + international_sales) as Cumulative_sales_from_all_movies
+FROM movies
+    INNER JOIN boxoffice
+        ON movies.id = boxoffice.movie_id
+GROUP BY director;
+
+ 
+

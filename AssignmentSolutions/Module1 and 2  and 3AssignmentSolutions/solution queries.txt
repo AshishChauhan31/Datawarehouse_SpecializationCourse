@@ -1,0 +1,24 @@
+1.
+
+select distinct city, state , zip from Customer;
+
+2. 
+
+select EMPNAME,DEPARTMENT,EMAIL,PHONE from employee where PHONE like "%3-%";
+
+3. 
+
+select * from resourcetbl where rate between 10 and 20 order by rate;
+
+4. 
+
+select eventno,dateauth,status from eventrequest where Dateauth between '2018-07-01' and '2018-07-31';
+
+
+5.
+
+select Locno, locname from Location,facility where facility.Facname = 'Basketball arena';
+
+6.
+
+select planno,Count(lineno),sum(numberfld) from eventplanline group by planno;  

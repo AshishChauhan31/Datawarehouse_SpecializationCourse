@@ -1,0 +1,214 @@
+1.
+
+USE [MedicalStore]
+GO
+
+/****** Object:  Table [dbo].[Customers]    Script Date: 2020-02-29 9:10:59 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Customers](
+	[_id] [int] IDENTITY(1,1) NOT NULL,
+	[_name] [varchar](30) NOT NULL,
+	[_purchase] [datetime] NULL,
+	[_totalAmount] [int] NULL,
+	[_InvoiceNumber] [int] NULL,
+	[_medID] [varchar](255) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+
+
+2. 
+
+USE [MedicalStore]
+GO
+
+/****** Object:  Table [dbo].[Medicinename]    Script Date: 2020-02-29 9:11:29 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Medicinename](
+	[_mid] [int] IDENTITY(1,1) NOT NULL,
+	[_shortcode] [varchar](30) NOT NULL,
+	[_name] [varchar](30) NOT NULL,
+	[_type] [varchar](50) NULL,
+	[_description] [varchar](50) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[_mid] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+3. 
+
+USE [MedicalStore]
+GO
+
+/****** Object:  Table [dbo].[MedicineStock]    Script Date: 2020-02-29 9:12:04 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[MedicineStock](
+	[_id] [int] IDENTITY(1,1) NOT NULL,
+	[Batch_no] [varchar](500) NULL,
+	[P_Date] [datetime] NULL,
+	[S_Date] [datetime] NULL,
+	[Expirydate] [datetime] NULL,
+	[Quantity] [int] NULL,
+	[_stockID] [varchar](255) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[MedicineStock]  WITH CHECK ADD FOREIGN KEY([_id])
+REFERENCES [dbo].[Medicinename] ([_mid])
+GO
+
+
+4. 
+
+USE [MedicalStore]
+GO
+
+/****** Object:  Table [dbo].[PriceCalculation]    Script Date: 2020-02-29 9:12:19 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[PriceCalculation](
+	[_id] [int] NOT NULL,
+	[_BatchNo] [varchar](30) NOT NULL,
+	[_medname] [varchar](30) NOT NULL,
+	[_Buyprice] [float] NULL,
+	[_sellingprice] [float] NULL,
+	[_medID] [varchar](255) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+5. 
+
+USE [MedicalStore]
+GO
+
+/****** Object:  Table [dbo].[PurchaseRegister]    Script Date: 2020-02-29 9:13:04 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[PurchaseRegister](
+	[_id] [int] IDENTITY(1,1) NOT NULL,
+	[_medID] [int] NOT NULL,
+	[_BatchNo] [varchar](30) NOT NULL,
+	[_medname] [varchar](30) NOT NULL,
+	[_type] [varchar](30) NOT NULL,
+	[_expiryDate] [datetime] NULL,
+	[_purchaseDate] [datetime] NULL,
+	[_qty] [int] NULL,
+	[_vendorid] [int] NULL,
+	[_Purchaseinvoice] [int] NULL,
+	[_Buyprice] [float] NULL,
+	[_sellprice] [float] NULL,
+	[_paymentMode] [varchar](20) NULL,
+	[_Total] [int] NULL,
+	[DateCreated] [datetime] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[PurchaseRegister] ADD  DEFAULT (getdate()) FOR [DateCreated]
+GO
+
+
+6. 
+
+USE [MedicalStore]
+GO
+
+/****** Object:  Table [dbo].[SaleRegister]    Script Date: 2020-02-29 9:13:26 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[SaleRegister](
+	[_id] [int] IDENTITY(1,1) NOT NULL,
+	[_medID] [int] NOT NULL,
+	[_BatchNo] [varchar](30) NOT NULL,
+	[_medname] [varchar](30) NOT NULL,
+	[_customername] [varchar](30) NOT NULL,
+	[_customerid] [varchar](30) NOT NULL,
+	[_qty] [int] NULL,
+	[_invoiceNo] [int] NULL,
+	[_paymentMode] [varchar](20) NULL,
+	[_Total] [int] NULL,
+	[DateCreated] [datetime] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[SaleRegister] ADD  DEFAULT (getdate()) FOR [DateCreated]
+GO
+
+
+7. 
+
+USE [MedicalStore]
+GO
+
+/****** Object:  Table [dbo].[Vendors]    Script Date: 2020-02-29 9:13:46 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Vendors](
+	[_id] [int] IDENTITY(1,1) NOT NULL,
+	[_shortcode] [varchar](30) NOT NULL,
+	[_name] [varchar](30) NOT NULL,
+	[_type] [varchar](50) NULL,
+	[_description] [varchar](50) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+

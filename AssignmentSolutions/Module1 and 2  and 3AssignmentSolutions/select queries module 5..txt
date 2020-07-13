@@ -1,0 +1,45 @@
+1. 
+
+select Custno,custname,phone,city from Customer;
+
+2. 
+
+select Custno,custname,phone,city from customer where state = 'CO';
+
+3.
+
+	select * from eventrequest where ESTCOST >4000 ORDER BY DATEHELD;
+
+4. 
+
+select EVENTNO,DATEHELD,ESTAUDIENCE FROM eventrequest 
+where (status = 'Approved' and ESTAUDIENCE >9000)
+      OR(status = 'Pending' and ESTAUDIENCE >7000);
+
+5. 
+
+select EVENTNO, DATEHELD, Customer.Custno,Custname
+from eventrequest,Customer 
+where City='Boulder' 
+	and DATEHELD between '2018-12-01' AND '2018-12-31'
+	and Using(Custno);
+
+6. 
+
+select Planno , AVG(NumberFld) as AvgNumResources,
+	Count(*) as numeventlines
+from Eventplanline
+where Locno = 'L100'
+Group by Planno;
+
+7.
+
+select Planno , AVG(NumberFld) as AvgNumResources,
+	Count(*) as numeventlines
+from Eventplanline
+where Locno = 'L100'
+Group by Planno
+having Count(*) > 1;
+
+
+  
